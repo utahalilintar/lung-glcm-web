@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Ekstraksi Tekstur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #fdfbfb, #ebedee);
+            padding: 40px 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        table {
+            margin: 0 auto 40px auto;
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+
+        .result-section {
+            margin-top: 40px;
+        }
+
+        .result-section h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .image-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            text-align: center;
+            width: 280px;
+        }
+
+        .image-item p {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .image-item img,
+        .histogram-item img {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .image-item img:hover,
+        .histogram-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .histogram-item {
+            max-width: 600px;
+            margin: 40px auto 20px;
+        }
+
+        .histogram-item p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 25px;
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #1f6391;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hasil Ekstraksi Tekstur</h2>
+
+    <table>
+        <tr><th>Fitur</th><th>Nilai</th></tr>
+        <tr><td>Contrast</td><td>{{ result.contrast }}</td></tr>
+        <tr><td>Energy</td><td>{{ result.energy }}</td></tr>
+        <tr><td>Homogeneity</td><td>{{ result.homogeneity }}</td></tr>
+    </table>
+
+    <div class="result-section">
+        <h3>Visualisasi Citra</h3>
+        <div class="image-grid">
+            <div class="image-item">
+                <p>Original</p>
+                <img src="{{ url_for('static', filename='uploads/' + result.filename) }}">
+            </div>
+            <div class="image-item">
+                <p>Grayscale</p>
+                <img src="{{ url_for('static', filename='uploads/gray_' + result.filename) }}">
+            </div>
+            <div class="image-item">
+                <p>Median Filter</p>
+                <img src="{{ url_for('static', filename='uploads/median_' + result.filename) }}">
+            </div>
+        </div>
+
+        <div class="histogram-item">
+            <p>Histogram:</p>
+            <img src="{{ url_for('static', filename='uploads/hist_' + result.filename) }}">
+        </div>
+    </div>
+
+    <a href="/">← Kembali ke Upload</a>
+</body>
+</html>
